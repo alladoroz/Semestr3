@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 
 namespace Robots
 {
+    /// <summary>
+    /// Class used to find out if set of robots can be destroyed
+    /// </summary>
     public class RoboNet
     {
+        /// <summary>
+        /// Graph constructor for robots
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <param name="robots"></param>
         public RoboNet(byte[,] graph, byte[] robots)
         {
             this.graph = graph;
@@ -23,7 +31,7 @@ namespace Robots
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        public bool Jump(int i, int j)
+        private bool Jump(int i, int j)
         {
             for (int t = 0; t < graph.GetLength(0); ++t)
             {
@@ -36,7 +44,7 @@ namespace Robots
         /// <summary>
         /// 'Colors' peak of the graph in black if jump is not possible
         /// </summary>
-        public void Black()
+        private void Black()
         {
             for (int i = 1; i < graph.GetLength(0); ++i)
                 if (!whiteGraph.Contains(i))
@@ -47,7 +55,7 @@ namespace Robots
         /// 'Colors' peak of the graph in white if jump is possible
         /// </summary>
         /// <param name="current"></param>
-        public void White(int current)
+        private void White(int current)
         {
             whiteGraph.Add(current);
             for (int i = 0; i < graph.GetLength(0); ++i)
@@ -60,7 +68,7 @@ namespace Robots
         /// </summary>
         /// <param name="subGraph"></param>
         /// <returns></returns>
-        public int Robots(ArrayList subGraph)
+        private int Robots(ArrayList subGraph)
         {
             int number = 0;
             for (int i = 0; i < graph.GetLength(0); ++i)
