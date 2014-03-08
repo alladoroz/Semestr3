@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ComputerNetwork
 {
+    /// <summary>
+    /// Linux OS
+    /// </summary>
     public class Linux : OperationSystem
     {
         /// <summary>

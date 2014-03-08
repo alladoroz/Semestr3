@@ -5,10 +5,19 @@ using System.Text;
 
 namespace ComputerNetwork
 {
+    /// <summary>
+    /// Class used to show if computer can be injured or not
+    /// </summary>
     public class Computer
     {
+        /// <summary>
+        /// shows if computer injured or not
+        /// </summary>
         public bool IsInjured { get; set; }
        
+        /// <summary>
+        /// shows if computer infected or not
+        /// </summary>
         public bool IsInfected { get; set; }
 
         /// <summary>
@@ -40,7 +49,6 @@ namespace ComputerNetwork
         }
 
         private Random rand = new Random(100);
-
         private OperationSystem operationSystem;
     }
 }

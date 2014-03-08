@@ -7,6 +7,9 @@ using System.Diagnostics;
 
 namespace ComputerNetwork
 {
+    /// <summary>
+    /// Class used to show how virus infects network
+    /// </summary>
     public class ComputerNetwork
     {
 
@@ -22,31 +25,29 @@ namespace ComputerNetwork
         }
 
         /// <summary>
-        /// Trying to infect computer
+        /// Trying to infect computer  
         /// </summary>
         /// <returns></returns>
-        public String Update(byte[,] graph)
+        public string Update()
         {
             var str = "";
-            str = str + Convert.ToString(0);
-            for (int i = 0; i < graph.GetLength(0); i++)
-                for (int j = i + 1; j < graph.GetLength(0); j++)
-                    if (graph[i, j] > 0)
+
+            for (int i = 0; i < connections.GetLength(0); i++)
+                for (int j = i + 1; j < connections.GetLength(0); j++)
+                    if (connections[i, j] > 0)
                     {
                         if (!users[j].IsInjured)
                         {
                             users[i].Attack(users[j]);
-                            str = str + Convert.ToString(j);
-                           // Console.WriteLine(j + "\n");
+
+                            if (users[j].IsInjured)
+                                str += Convert.ToString(j);
                         }
                     }
-
-            for (int i = 0; i < graph.GetLength(0); i++)
-                if (users[i].IsInjured)
-                {
-                    users[i].IsInfected = true;
-                }
-
+            for (int i = 0; i < str.Length; ++i)
+            {
+                users[str[i] - '0'].IsInfected = true;
+            }
             return str;
         }
 
@@ -64,13 +65,7 @@ namespace ComputerNetwork
             return k * 100 / connections.GetLength(0) + "% infected";
         }
 
-        /// <summary>
-        /// BFS
-        /// </summary>
-        /// <param name="peak"
-        /// ></param>
-        /// <returns></returns>
-        public String BFS(int peak)
+        /*public String BFS(int peak)
         {
             var str = "";
             var isVisited = new bool[connections.GetLength(0)];
@@ -95,7 +90,7 @@ namespace ComputerNetwork
                 }
             }
             return str;
-        }
+        }*/
 
         static void Main(string[] args)
         {
@@ -125,10 +120,10 @@ namespace ComputerNetwork
             users[8] = new Computer(new Windows()) { IsInfected = true };
 
             ComputerNetwork network = new ComputerNetwork(connections, users);
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 20; i++)
             {
                 network.Print();
-                network.Update(connections);
+                network.Update();
             }
         }
         

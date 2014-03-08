@@ -42,7 +42,7 @@ namespace ComputerNetworkTests
    
             for (int i = 0; i < 100; ++i)
             {
-                network.Update(connections);
+                network.Update();
             }
             Assert.AreEqual("66% infected", network.Print());
         }
@@ -54,11 +54,11 @@ namespace ComputerNetworkTests
             {
                 {0, 1, 0, 0, 0, 0, 0, 0, 0},
                 {1, 0, 1, 0, 0, 0, 0, 0, 0},
-                {0, 1, 0, 1, 0, 0, 0, 0, 0},
-                {0, 0, 1, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 1, 0, 1, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 1, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 1, 0},
+                {0, 1, 0, 1, 0, 1, 0, 0, 0},
+                {0, 0, 1, 0, 1, 0, 1, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 1, 0, 1, 0, 1, 0},
                 {0, 0, 0, 0, 0, 0, 1, 0, 1},
                 {0, 0, 0, 0, 0, 0, 0, 1, 0}
             };
@@ -76,8 +76,12 @@ namespace ComputerNetworkTests
             users[8] = new Computer(new TestOS()) { IsInfected = false };
 
             ComputerNetwork.ComputerNetwork network = new ComputerNetwork.ComputerNetwork(connections, users);
-            Assert.AreEqual(network.Update(connections), network.BFS(0));
-            
+
+            Assert.AreEqual(network.Update(), "1");
+            Assert.AreEqual(network.Update(), "2");
+            Assert.AreEqual(network.Update(), "35");
+            Assert.AreEqual(network.Update(), "46");
+            Assert.AreEqual(network.Update(), "7");
         }
 
         [TestMethod]
@@ -85,10 +89,10 @@ namespace ComputerNetworkTests
         {
             byte[,] connections = 
             {
-                {0, 1, 0, 1},
+                {0, 1, 0, 0},
                 {1, 0, 1, 0},
                 {0, 1, 0, 1},
-                {1, 0, 1, 0},
+                {0, 0, 1, 0},
             };
 
             Computer[] users = new Computer[4];
@@ -100,7 +104,10 @@ namespace ComputerNetworkTests
 
 
             ComputerNetwork.ComputerNetwork network = new ComputerNetwork.ComputerNetwork(connections, users);
-            Assert.AreEqual(network.Update(connections), network.BFS(0));
+
+            Assert.AreEqual(network.Update(), "1");
+            Assert.AreEqual(network.Update(), "2");
+            Assert.AreEqual(network.Update(), "3");
         }
 
         private class TestOS : OperationSystem

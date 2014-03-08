@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ComputerNetwork
 {
+    /// <summary>
+    /// OS of computer
+    /// </summary>
     public abstract class OperationSystem
     {
         /// <summary>
@@ -13,6 +16,9 @@ namespace ComputerNetwork
         /// <returns></returns>
         protected abstract int GetProbability();
 
+        /// <summary>
+        /// virus probability to infect
+        /// </summary>
         public int VirusProbability
         {
             get

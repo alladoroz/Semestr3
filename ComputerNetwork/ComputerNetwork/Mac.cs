@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ComputerNetwork
 {
+    /// <summary>
+    /// Mac OS
+    /// </summary>
     public class Mac : OperationSystem
     {
         /// <summary>
