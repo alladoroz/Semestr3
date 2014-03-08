@@ -44,10 +44,10 @@ namespace ComputerNetwork
                                 str += Convert.ToString(j);
                         }
                     }
-            for (int i = 0; i < str.Length; ++i)
+            /*for (int i = 0; i < str.Length; ++i)
             {
                 users[str[i] - '0'].IsInfected = true;
-            }
+            }*/
             return str;
         }
 
