@@ -1,23 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 
 namespace BST
 {
-    public class Tree
+    public class Tree : IEnumerable
     {
         /// <summary>
         /// Tree constructor
         /// </summary>
         public Tree()
         {
-            this.tree = null;
+            this.tree = this;
         }
 
-        public Tree Left { get; set; }
-        public Tree Right { get; set; }
-        public int Value { get; set; }
+        /// <summary>
+        /// Left subtree
+        /// </summary>
+        public Tree Left { get; private set; }
+
+        /// <summary>
+        /// Right subtree
+        /// </summary>
+        public Tree Right { get; private set; }
+
+        /// <summary>
+        /// value in node
+        /// </summary>
+        public int Value { get; private set; }
 
         /// <summary>
         /// Builds iterable tree
@@ -40,6 +52,31 @@ namespace BST
                 foreach (Tree f in Right.GetAll())
                 {
                     yield return f;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Iterator
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator GetEnumerator()
+        {
+            if (Left != null)
+            {
+                foreach (int t in Left)
+                {
+                    yield return t;
+                }
+            }
+
+            yield return this.Value;
+
+            if (Right != null)
+            {
+                foreach (int t in Right)
+                {
+                    yield return t;
                 }
             }
         }
@@ -68,6 +105,16 @@ namespace BST
             {
                 if (Value > value)
                 {
+                    if (Left == null)
+                        return false;
+                    else
+                    {
+                        Left.length = length;
+                        return Left.Search(value);
+                    }
+                }
+                else
+                {
                     if (Right == null)
                         return false;
                     else
@@ -76,15 +123,66 @@ namespace BST
                         return Right.Search(value);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Deletes element from tree
+        /// </summary>
+        /// <param name="value"></param>
+        public void Delete(int value)
+        {
+            if (value > Value)
+            {
+                if (Right != null)
+                {
+                    if ((Right.Value == value) && (Right.Left == null) && (Right.Right == null))
+                    //{
+                        this.Right = null;
+                       // length--;
+                    //}
+
+                    Right.Delete(value);
+                }
+            }
+
+            if (value < Value)
+            {
+                if (Left != null)
+                {
+                    if ((Left.Value == value) && (Left.Left == null) && (Left.Right == null))
+                    {
+                        Left = null;
+                        length--;
+                    }
+
+                    Left.Delete(value);
+                }
+            }
+
+            if (value == Value)
+            {
+                this.length--;
+
+                if (Right == null && Left == null)
+                    return;
+
+                if (Right == null)
+                    tree.Left = Left;
+
+                if (Left == null) 
+                    tree.Right = Right;
+
+                if (Right.Left != null)
+                {
+                    Value = Right.Left.Value;
+                    Right.Left.Delete(Right.Left.Value);
+                }
+
                 else
                 {
-                    if (Left == null)
-                        return false;
-                    else
-                    {
-                        Left.length = length;
-                        return Left.Search(value);
-                    }
+                    Value = Right.Value;
+                    Right.Delete(Right.Value);
                 }
             }
         }
@@ -129,7 +227,15 @@ namespace BST
             length++;
         }
 
-        private Tree tree = null;
+        private static void Node(Tree tree, bool isLeft)
+        {
+            if (isLeft)
+                tree.Left = null;
+            else
+                tree.Right = null;
+        }
+
+        private Tree tree;
         private int length = 0;
     }
 }
