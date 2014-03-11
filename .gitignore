@@ -38,8 +38,11 @@ TestResults/
 *.rar
 *.tar
 *.zip
+*.xml
+*.iml
+*.name
 # Logs and databases #
-######################
+*######################
 *.log
 *.sqlite
 # OS generated files #
