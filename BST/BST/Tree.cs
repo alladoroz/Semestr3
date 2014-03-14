@@ -6,54 +6,61 @@ using System.Text;
 
 namespace BST
 {
-    public class Tree : IEnumerable
+    /// <summary>
+    /// BST
+    /// </summary>
+    public class Tree
     {
         /// <summary>
-        /// Tree constructor
+        /// Tree Constructor
         /// </summary>
-        public Tree()
+        public Tree() { }
+
+        /// <summary>
+        /// Searching element
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool Search(int value)
         {
-            this.tree = this;
+            if (IsEmpty())
+                return false;
+            else
+                return tree.Search(value);
         }
 
         /// <summary>
-        /// Left subtree
+        /// Removing element
         /// </summary>
-        public Tree Left { get; private set; }
+        /// <param name="value"></param>
+        public void Remove(int value)
+        {
+            Delete(value, tree);
+        }
 
         /// <summary>
-        /// Right subtree
+        /// Adds element
         /// </summary>
-        public Tree Right { get; private set; }
+        /// <param name="value"></param>
+        public void Add(int value)
+        {
+            if (IsEmpty())
+            {
+                tree = new TreeElement();
+                tree.Value = value;
+                tree.Length++;
+            }
+            else
+                tree.Add(value);
+        }
 
         /// <summary>
-        /// value in node
-        /// </summary>
-        public int Value { get; private set; }
-
-        /// <summary>
-        /// Builds iterable tree
+        /// Checks if tree is empty
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Tree> GetAll()
+        public bool IsEmpty()
         {
-            if (Left != null)
-            {
-                foreach (Tree f in Left.GetAll())
-                {
-                    yield return f;
-                }
-            }
-
-            yield return this;
-
-            if (Right != null)
-            {
-                foreach (Tree f in Right.GetAll())
-                {
-                    yield return f;
-                }
-            }
+            return tree == null;
         }
 
         /// <summary>
@@ -62,180 +69,232 @@ namespace BST
         /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
-            if (Left != null)
-            {
-                foreach (int t in Left)
-                {
-                    yield return t;
-                }
-            }
-
-            yield return this.Value;
-
-            if (Right != null)
-            {
-                foreach (int t in Right)
-                {
-                    yield return t;
-                }
-            }
+            return tree.GetEnumerator();
         }
 
-        /// <summary>
-        /// Prints tree
-        /// </summary>
-        public void Print()
+        private void Delete(int value, TreeElement element)
         {
-            foreach (Tree t in GetAll())
+            if (element != null)
             {
-                Console.WriteLine(t.Value);
-            }
-        }
-
-        /// <summary>
-        /// Element searching
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public bool Search(int value)
-        {
-            if (Value == value)
-                return true;
-            else
-            {
-                if (Value > value)
+                while (value != element.Value)
                 {
-                    if (Left == null)
-                        return false;
+                    if (value > element.Value && element.Right != null)
+                        element = element.Right;
+
+                    else if (value < element.Value && element.Left != null)
+                        element = element.Left;
+
+                    else
+                        break;
+                }
+
+                if (value == element.Value)
+                {
+                    if (element.Left == null && element.Right == null)
+                    {
+                        if (element.Parent == null)
+                            tree = null;
+                        else
+                        {
+                            if (element.Parent.Value < value)
+                                element.Parent.Right = null;
+                            else
+                            {
+                                element.Parent.Left = null;
+                            }
+                        }
+                    }
+
+                    else if (element.Left == null && element.Right != null)
+                    {
+                        if (element.Parent == null)
+                            tree = element.Right;
+                        else
+                        {
+                            if (element.Parent.Value < value)
+                                element.Parent.Right = element.Right;
+                            else
+                            {
+                                element.Parent.Left = element.Right;
+                            }
+                        }
+                    }
+
+                    else if (element.Left != null && element.Right == null)
+                    {
+                        if (element.Parent == null)
+                            tree = element.Left;
+                        else
+                        {
+                            if (element.Parent.Value < value)
+                                element.Parent.Left = element.Left;
+                            else
+                            {
+                                element.Parent.Right = element.Left;
+                            }
+                        }
+                    }
+
                     else
                     {
-                        Left.length = length;
-                        return Left.Search(value);
-                    }
-                }
-                else
-                {
-                    if (Right == null)
-                        return false;
-                    else
-                    {
-                        Right.length = length;
-                        return Right.Search(value);
+                        TreeElement treeElement = new TreeElement(element.Right);
+                        while (treeElement.Left != null)
+                        {
+                            treeElement = treeElement.Left;
+                        }
+
+                        element.Value = treeElement.Value;
+                        Delete(treeElement.Value, treeElement);
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Deletes element from tree
+        /// Tree element class 
         /// </summary>
-        /// <param name="value"></param>
-        public void Delete(int value)
+        private class TreeElement
         {
-            if (value > Value)
-            {
-                if (Right != null)
-                {
-                    if ((Right.Value == value) && (Right.Left == null) && (Right.Right == null))
-                    //{
-                        this.Right = null;
-                       // length--;
-                    //}
+            /// <summary>
+            /// Right subtree
+            /// </summary>
+            public TreeElement Right { get; set; }
 
-                    Right.Delete(value);
-                }
+            /// <summary>
+            /// Left subtree
+            /// </summary>
+            public TreeElement Left { get; set; }
+
+            /// <summary>
+            /// Parent of node
+            /// </summary>
+            public TreeElement Parent { get; set; }
+
+            /// <summary>
+            /// value in tree
+            /// </summary>
+            public int Value { get; set; }
+
+            /// <summary>
+            /// length
+            /// </summary>
+            public int Length { get; set; }
+
+            /// <summary>
+            /// constructor
+            /// </summary>
+            /// <param name="element"></param>
+            public TreeElement(TreeElement element)
+            {
+                this.Right = element.Right;
+                this.Left = element.Left;
+                this.Parent = element.Parent;
             }
 
-            if (value < Value)
+            /// <summary>
+            /// constructor
+            /// </summary>
+            public TreeElement()
+            {
+            }
+
+            /// <summary>
+            /// Iterator
+            /// </summary>
+            /// <returns></returns>
+            public IEnumerator GetEnumerator()
             {
                 if (Left != null)
                 {
-                    if ((Left.Value == value) && (Left.Left == null) && (Left.Right == null))
+                    foreach (int t in Left)
                     {
-                        Left = null;
-                        length--;
+                        yield return t;
                     }
+                }
 
-                    Left.Delete(value);
+                yield return this.Value;
+
+                if (Right != null)
+                {
+                    foreach (int t in Right)
+                    {
+                        yield return t;
+                    }
                 }
             }
 
-            if (value == Value)
+            /// <summary>
+            /// Adds element
+            /// </summary>
+            /// <param name="value"></param>
+            public void Add(int value)
             {
-                this.length--;
-
-                if (Right == null && Left == null)
-                    return;
-
-                if (Right == null)
-                    tree.Left = Left;
-
-                if (Left == null) 
-                    tree.Right = Right;
-
-                if (Right.Left != null)
+                if (Length == 0)
                 {
-                    Value = Right.Left.Value;
-                    Right.Left.Delete(Right.Left.Value);
+                    Value = value;
+                    Length++;
                 }
+                else
+                {
+                    if (Value > value)
+                    {
+                        if (Left == null)
+                        {
+                            Left = new TreeElement();
+                            Left.Value = value;
+                            Left.Length++;
+                        }
+                        else
+                            Left.Add(value);
+                    }
+                    else
+                    {
+                        if (Right == null)
+                        {
+                            Right = new TreeElement();
+                            Right.Value = value;
+                            Right.Length++;
+                        }
+                        else
+                            Right.Add(value);
+                    }
+                }
+                Length++;
+            }
+
+            /// <summary>
+            /// Searching element
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            public bool Search(int value)
+            {
+                if (Value == value)
+                    return true;
 
                 else
                 {
-                    Value = Right.Value;
-                    Right.Delete(Right.Value);
+                    if (Value > value)
+                    {
+                        if (Left == null)
+                            return false;
+                        else
+                            return Left.Search(value);
+                    }
+                    else
+                    {
+                        if (Right == null)
+                            return false;
+                        else
+                            return Right.Search(value);
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// Element addition
+        /// head
         /// </summary>
-        /// <param name="value"></param>
-        public void Add(int value)
-        {
-            if (length == 0)
-                Value = value;
-            else
-            {
-                if (Value > value)
-                {
-                    if (Left == null)
-                    {
-                        Left = new Tree();
-                        Left.Value = value;
-                        Left.length++;
-                    }
-                    else
-                    {
-                        Left.Add(value);
-                    }
-                }
-                else
-                {
-                    if (Right == null)
-                    {
-                        Right = new Tree();
-                        Right.Value = value;
-                        Right.length++;
-                    }
-                    else
-                    {
-                        Right.Add(value);
-                    }
-                }
-            }
-            length++;
-        }
-
-        private static void Node(Tree tree, bool isLeft)
-        {
-            if (isLeft)
-                tree.Left = null;
-            else
-                tree.Right = null;
-        }
-
-        private Tree tree;
-        private int length = 0;
+        private TreeElement tree;
     }
 }

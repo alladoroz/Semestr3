@@ -13,15 +13,6 @@ namespace BSTTests
         Tree tree = new Tree();
 
         [TestMethod]
-        public void TestAdd()
-        {
-            tree.Add(7);
-            tree.Add(8);
-            tree.Add(43);
-            tree.Print();
-        }
-
-        [TestMethod]
         public void TestSearch()
         {
             tree.Add(5);
@@ -35,12 +26,12 @@ namespace BSTTests
         {
             tree.Add(1);
             tree.Add(1);
-            tree.Delete(1);
+            tree.Remove(1);
             Assert.IsTrue(tree.Search(1));
         }
 
         [TestMethod]
-        public void TestAdd1()
+        public void TestAdd()
         {
             tree.Add(5);
             tree.Add(6);
@@ -54,6 +45,54 @@ namespace BSTTests
                 Assert.AreEqual(arr[count], item);
                 count++;
             }
+        }
+
+        [TestMethod]
+        public void DeleteTest1()
+        {
+            tree.Add(3);
+            tree.Add(24);
+            tree.Add(11);
+            tree.Add(10);
+            tree.Add(19);
+            tree.Add(18);
+            tree.Remove(19);
+            tree.Remove(24);
+            tree.Remove(10);
+            Assert.IsFalse(tree.Search(24));
+            Assert.IsFalse(tree.Search(10));
+            Assert.IsFalse(tree.Search(19));
+        }
+
+        [TestMethod]
+        public void DeleteTest2()
+        {
+            tree.Add(8);
+            tree.Add(4);
+            tree.Add(2);
+            tree.Add(6);
+            tree.Add(1);
+            tree.Add(3);
+            tree.Add(5);
+            tree.Add(7);
+            tree.Add(12);
+            tree.Add(10);
+            tree.Add(14);
+            tree.Add(9);
+            tree.Add(11);
+            tree.Add(13);
+            tree.Add(15);
+            tree.Remove(8);
+            tree.Remove(11);
+            Assert.IsFalse(tree.Search(11));
+        }
+
+        [TestMethod]
+        public void TestIsEmpty()
+        {
+            Assert.IsTrue(tree.IsEmpty());
+            tree.Add(6);
+            Assert.IsFalse(tree.IsEmpty());
         }
     }
 }
