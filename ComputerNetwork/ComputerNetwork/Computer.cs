@@ -35,7 +35,7 @@ namespace ComputerNetwork
         /// <returns></returns>
         private int RandNext()
         {
-            return rand.Next(0, 100);
+            return rand.Next(100);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace ComputerNetwork
                 aim.IsInjured = true;
         }
 
-        private Random rand = new Random(100);
+        private Random rand = new Random();
         private OperationSystem operationSystem;
     }
 }

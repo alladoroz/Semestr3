@@ -44,10 +44,11 @@ namespace ComputerNetwork
                                 str += Convert.ToString(j);
                         }
                     }
-            /*for (int i = 0; i < str.Length; ++i)
+
+            for (int i = 0; i < str.Length; ++i)
             {
                 users[str[i] - '0'].IsInfected = true;
-            }*/
+            }
             return str;
         }
 
@@ -108,6 +109,7 @@ namespace ComputerNetwork
             };
 
             Computer[] users = new Computer[9];
+            Random rand = new Random();
 
             users[0] = new Computer(new Windows()) { IsInfected = true};
             users[1] = new Computer(new Windows()) { IsInfected = false };
