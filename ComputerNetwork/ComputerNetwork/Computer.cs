@@ -30,25 +30,15 @@ namespace ComputerNetwork
         }
 
         /// <summary>
-        /// Gets random number
-        /// </summary>
-        /// <returns></returns>
-        private int RandNext()
-        {
-            return rand.Next(100);
-        }
-
-        /// <summary>
         /// Attack computer and tries to infect it
         /// </summary>
         /// <param name="aim"></param>
         public void Attack(Computer aim)
         {
-            if (IsInfected && RandNext() < aim.operationSystem.VirusProbability)
+            if (IsInfected && RandomSingleton.Instance.Next(100) < aim.operationSystem.VirusProbability)
                 aim.IsInjured = true;
         }
 
-        private Random rand = new Random();
         private OperationSystem operationSystem;
     }
 }

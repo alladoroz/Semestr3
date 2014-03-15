@@ -66,7 +66,7 @@ namespace ComputerNetwork
             return k * 100 / connections.GetLength(0) + "% infected";
         }
 
-        /*public String BFS(int peak)
+        public String BFS(int peak)
         {
             var str = "";
             var isVisited = new bool[connections.GetLength(0)];
@@ -91,7 +91,7 @@ namespace ComputerNetwork
                 }
             }
             return str;
-        }*/
+        }
 
         static void Main(string[] args)
         {
@@ -127,6 +127,8 @@ namespace ComputerNetwork
                 network.Print();
                 network.Update();
             }
+
+            Console.WriteLine(network.BFS(0));
         }
         
         private Computer[] users;
