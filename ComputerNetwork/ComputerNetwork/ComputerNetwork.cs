@@ -66,6 +66,7 @@ namespace ComputerNetwork
             return k * 100 / connections.GetLength(0) + "% infected";
         }
 
+        /*
         public String BFS(int peak)
         {
             var str = "";
@@ -92,7 +93,8 @@ namespace ComputerNetwork
             }
             return str;
         }
-
+        */
+          
         static void Main(string[] args)
         {
             byte[,] connections = 
@@ -127,8 +129,6 @@ namespace ComputerNetwork
                 network.Print();
                 network.Update();
             }
-
-            Console.WriteLine(network.BFS(0));
         }
         
         private Computer[] users;
