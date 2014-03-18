@@ -66,35 +66,6 @@ namespace ComputerNetwork
             return k * 100 / connections.GetLength(0) + "% infected";
         }
 
-        /*
-        public String BFS(int peak)
-        {
-            var str = "";
-            var isVisited = new bool[connections.GetLength(0)];
-            var queue = new Queue<int>();
-
-            queue.Enqueue(peak);
-            isVisited[peak] = true;
-            str = str + Convert.ToString(peak);
-
-            while (queue.Count != 0)
-            {
-                var current = queue.Dequeue();
-                Console.WriteLine(current);
-                for (int i = 0; i < connections.GetLength(0); ++i)
-                {
-                    if (connections[current, i] != 0 && !isVisited[i])
-                    {
-                        queue.Enqueue(i);
-                        isVisited[i] = true;
-                        str = str + Convert.ToString(i);
-                    }
-                }
-            }
-            return str;
-        }
-        */
-          
         static void Main(string[] args)
         {
             byte[,] connections = 
@@ -113,15 +84,15 @@ namespace ComputerNetwork
             Computer[] users = new Computer[9];
             Random rand = new Random();
 
-            users[0] = new Computer(new Windows()) { IsInfected = true};
-            users[1] = new Computer(new Windows()) { IsInfected = false };
-            users[2] = new Computer(new Linux()) { IsInfected = false };
-            users[3] = new Computer(new Linux()) { IsInfected = false };
-            users[4] = new Computer(new Mac()) { IsInfected = false };
-            users[5] = new Computer(new Mac()) { IsInfected = false };
-            users[6] = new Computer(new Windows()) { IsInfected = false };
-            users[7] = new Computer(new Windows()) { IsInfected = false };
-            users[8] = new Computer(new Windows()) { IsInfected = true };
+            users[0] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = true};
+            users[1] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = false };
+            users[2] = new Computer(new Linux(), () => rand.Next(100)) { IsInfected = false };
+            users[3] = new Computer(new Linux(), () => rand.Next(100)) { IsInfected = false };
+            users[4] = new Computer(new Mac(), () => rand.Next(100)) { IsInfected = false };
+            users[5] = new Computer(new Mac(), () => rand.Next(100)) { IsInfected = false };
+            users[6] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = false };
+            users[7] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = false };
+            users[8] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = true };
 
             ComputerNetwork network = new ComputerNetwork(connections, users);
             for (int i = 0; i < 20; i++)
@@ -129,6 +100,7 @@ namespace ComputerNetwork
                 network.Print();
                 network.Update();
             }
+
         }
         
         private Computer[] users;

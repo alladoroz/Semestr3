@@ -27,16 +27,17 @@ namespace ComputerNetworkTests
             };
 
             Computer[] users = new Computer[9];
+            var rand = new Random();
 
-            users[0] = new Computer(new Windows()) { IsInfected = true };
-            users[1] = new Computer(new Windows()) { IsInfected = false };
-            users[2] = new Computer(new Linux()) { IsInfected = false };
-            users[3] = new Computer(new Linux()) { IsInfected = false };
-            users[4] = new Computer(new Mac()) { IsInfected = false };
-            users[5] = new Computer(new Mac()) { IsInfected = false };
-            users[6] = new Computer(new Windows()) { IsInfected = true };
-            users[7] = new Computer(new Windows()) { IsInfected = false };
-            users[8] = new Computer(new Windows()) { IsInfected = true };
+            users[0] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = true };
+            users[1] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = false };
+            users[2] = new Computer(new Linux(), () => rand.Next(100)) { IsInfected = false };
+            users[3] = new Computer(new Linux(), () => rand.Next(100)) { IsInfected = false };
+            users[4] = new Computer(new Mac(), () => rand.Next(100)) { IsInfected = false };
+            users[5] = new Computer(new Mac(), () => rand.Next(100)) { IsInfected = false };
+            users[6] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = true };
+            users[7] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = false };
+            users[8] = new Computer(new Windows(), () => rand.Next(100)) { IsInfected = true };
 
             ComputerNetwork.ComputerNetwork  network = new ComputerNetwork.ComputerNetwork(connections, users);
    
@@ -65,15 +66,15 @@ namespace ComputerNetworkTests
 
             Computer[] users = new Computer[9];
 
-            users[0] = new Computer(new TestOS()) { IsInfected = true };
-            users[1] = new Computer(new TestOS()) { IsInfected = false };
-            users[2] = new Computer(new TestOS()) { IsInfected = false };
-            users[3] = new Computer(new TestOS()) { IsInfected = false };
-            users[4] = new Computer(new TestOS()) { IsInfected = false };
-            users[5] = new Computer(new TestOS()) { IsInfected = false };
-            users[6] = new Computer(new TestOS()) { IsInfected = false };
-            users[7] = new Computer(new TestOS()) { IsInfected = false };
-            users[8] = new Computer(new TestOS()) { IsInfected = false };
+            users[0] = new Computer(new TestOS(), () => 100) { IsInfected = true };
+            users[1] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[2] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[3] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[4] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[5] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[6] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[7] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[8] = new Computer(new TestOS(), () => 100) { IsInfected = false };
 
             ComputerNetwork.ComputerNetwork network = new ComputerNetwork.ComputerNetwork(connections, users);
 
@@ -97,10 +98,10 @@ namespace ComputerNetworkTests
 
             Computer[] users = new Computer[4];
 
-            users[0] = new Computer(new TestOS()) { IsInfected = true };
-            users[1] = new Computer(new TestOS()) { IsInfected = false };
-            users[2] = new Computer(new TestOS()) { IsInfected = false };
-            users[3] = new Computer(new TestOS()) { IsInfected = false };
+            users[0] = new Computer(new TestOS(), () => 100) { IsInfected = true };
+            users[1] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[2] = new Computer(new TestOS(), () => 100) { IsInfected = false };
+            users[3] = new Computer(new TestOS(), () => 100) { IsInfected = false };
 
 
             ComputerNetwork.ComputerNetwork network = new ComputerNetwork.ComputerNetwork(connections, users);

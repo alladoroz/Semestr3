@@ -24,9 +24,10 @@ namespace ComputerNetwork
         /// Computer constructor
         /// </summary>
         /// <param name="operationSystem"></param>
-        public Computer(OperationSystem operationSystem)
+        public Computer(OperationSystem operationSystem, Func<int> random)
         {
             this.operationSystem = operationSystem;
+            value = random;
         }
 
         /// <summary>
@@ -35,10 +36,12 @@ namespace ComputerNetwork
         /// <param name="aim"></param>
         public void Attack(Computer aim)
         {
-            if (IsInfected && RandomSingleton.Instance.Next(100) < aim.operationSystem.VirusProbability)
+            if (IsInfected &&  value() % 100 < aim.operationSystem.VirusProbability)
                 aim.IsInjured = true;
         }
 
         private OperationSystem operationSystem;
+        private Func<int> value;
     }
 }
+
