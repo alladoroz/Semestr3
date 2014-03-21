@@ -1,5 +1,6 @@
 package Alla.graph;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -13,19 +14,20 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int numberOfVertices;
         int numberOfRobots;
-        int[][] adjacentVertices;
+        ArrayList<Integer>[] adjacentVertices;
         boolean[] robots;
 
         System.out.println("Please note that vertices are enumerated starting with 0");
         System.out.println("Enter number of vertices");
         numberOfVertices = sc.nextInt();
-        adjacentVertices = new int[numberOfVertices][numberOfVertices];
+        adjacentVertices = new ArrayList[numberOfVertices];
 
         System.out.println("For each vertex enter number of adjacent vertices and enumerate them");
         for (int i = 0; i < numberOfVertices; i++) {
-            adjacentVertices[i][0] = sc.nextInt();
-            for (int j = 1; j <= adjacentVertices[i][0]; j++)
-                adjacentVertices[i][j] = sc.nextInt();
+            int currentNumberOfVertices = sc.nextInt();
+            adjacentVertices[i] = new ArrayList<Integer>();
+            for (int j = 0; j < currentNumberOfVertices; j++)
+                adjacentVertices[i].add(sc.nextInt());
         }
 
         System.out.println("Enter number of robots");

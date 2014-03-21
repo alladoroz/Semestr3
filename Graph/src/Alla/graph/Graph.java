@@ -1,5 +1,7 @@
 package Alla.graph;
 
+import java.util.ArrayList;
+
 /**
  * Graph class
  */
@@ -9,7 +11,7 @@ public class Graph {
     private int unevenRobots = 0;
 
     private int[] was;
-    private int[][] adjacentVertices;
+    private ArrayList<Integer>[] adjacentVertices;
     private boolean[] robots;
     private int numberOfRobots;
 
@@ -20,7 +22,7 @@ public class Graph {
      * @param numberOfRobots number of robots
      * @param numberOfVertices number of vertices
      */
-    public Graph(int[][] adjacentVertices, boolean[] robots, int numberOfRobots, int numberOfVertices) {
+    public Graph(ArrayList<Integer>[] adjacentVertices, boolean[] robots, int numberOfRobots, int numberOfVertices) {
         this.was = new int[numberOfVertices];
         this.adjacentVertices = adjacentVertices;
         this.robots = robots;
@@ -62,10 +64,10 @@ public class Graph {
             else
                 unevenRobots++;
 
-        for (int i = 1; i <= adjacentVertices[vertex][0]; i++) {
-            if (was[adjacentVertices[vertex][i]] == 0)
-                depthFirstSearch(adjacentVertices[vertex][i], from == 2 ? 1 : 2);
-            else if (was[adjacentVertices[vertex][i]] == was[vertex])
+        for (int i = 0; i < adjacentVertices[vertex].size(); i++) {
+            if (was[adjacentVertices[vertex].get(i)] == 0)
+                depthFirstSearch(adjacentVertices[vertex].get(i), from == 2 ? 1 : 2);
+            else if (was[adjacentVertices[vertex].get(i)] == was[vertex])
                 cycle = true;
         }
     }
