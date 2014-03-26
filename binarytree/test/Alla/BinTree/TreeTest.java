@@ -21,9 +21,10 @@ public class TreeTest {
     @Test
     public void testRemove() {
         instance.add("remove");
+        instance.add("ololo");
         instance.remove("remove");
+        assertTrue(instance.contains("ololo"));
         assertFalse(instance.contains("remove"));
-
     }
 
     /**

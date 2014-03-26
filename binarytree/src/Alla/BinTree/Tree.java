@@ -96,6 +96,8 @@ public class Tree< T extends Comparable<T> > implements Iterable<T> {
     private Node root;
 
     public class TreeIterator implements Iterator<T> {
+        private Stack<Node> stack;
+        private Node position;
 
         private TreeIterator() {
             stack = new Stack<Node>();
@@ -124,9 +126,6 @@ public class Tree< T extends Comparable<T> > implements Iterable<T> {
         public void remove() {
             throw new UnsupportedOperationException("cannot remove from a binary tree");
         }
-
-        private Stack<Node> stack;
-        private Node position;
     }
 
     @Override

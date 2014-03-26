@@ -19,6 +19,7 @@
     </orderEntry>
     <orderEntry type="library" name="junit" level="project" />
     <orderEntry type="library" name="IntelliJ IDEA 13.1" level="application" />
+    <orderEntry type="library" name="junit-4.10" level="project" />
   </component>
 </module>
 
