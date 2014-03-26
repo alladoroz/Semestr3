@@ -78,4 +78,5 @@ public class GraphTest {
     public void testTest2() throws Exception {
         assertTrue(graph2.test());
     }
+
 }

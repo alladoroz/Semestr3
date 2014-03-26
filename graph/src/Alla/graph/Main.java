@@ -10,7 +10,7 @@ public class Main {
     /**
      * input method
      */
-    private static Graph input () {
+    private static Graph input() {
         Scanner sc = new Scanner(System.in);
         int numberOfVertices;
         int numberOfRobots;

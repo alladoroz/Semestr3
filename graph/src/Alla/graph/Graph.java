@@ -11,7 +11,6 @@ public class Graph {
     private int unevenRobots = 0;
 
     private int[] was;
-    //private int[][] adjacentVertices;
     private ArrayList<Integer>[] adjacentVertices;
     private boolean[] robots;
     private int numberOfRobots;
