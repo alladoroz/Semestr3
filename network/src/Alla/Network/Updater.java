@@ -5,12 +5,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-import java.util.TimerTask;
 
 /**
  * Printing the current network state
  */
-public class Updater extends TimerTask{
+public class Updater {
     private Random randomizer;
 
     private int[][] connections;
@@ -20,6 +19,7 @@ public class Updater extends TimerTask{
     private final int numberOfComputers = NetworkParameters.numberOfComputers();
     private final double probabilityLinux = NetworkParameters.probabilityLinux();
     private final double probabilityWindows = NetworkParameters.probabilityWindows();
+
     /**
      * Initiating the data fields on the creating of a new instance of Updater
      */
@@ -43,7 +43,6 @@ public class Updater extends TimerTask{
     /**
      * Refreshing the system state and printing it
      */
-    @Override
     public void run() {
         updateNetworkState();
         printCurrentState();

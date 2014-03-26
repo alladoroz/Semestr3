@@ -8,6 +8,7 @@ import java.util.TimerTask;
  * Printing current state of the network
  */
 public class NetworkStatePrinter {
+    private Updater update;
 
     public NetworkStatePrinter() {
         update = new Updater();
@@ -21,9 +22,6 @@ public class NetworkStatePrinter {
      * Printing the current network state every second
      */
     public void print() {
-        Timer timer = new Timer();
-        timer.schedule(update, 0, 1000);
+        update.currentStateString();
     }
-
-    private TimerTask update;
 }
