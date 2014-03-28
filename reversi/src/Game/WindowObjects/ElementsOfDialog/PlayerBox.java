@@ -96,6 +96,7 @@ public class PlayerBox {
     private JComboBox createComboBox(){
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("very easy");
+        comboBox.addItem("not so easy");
         comboBox.setEnabled(false);
         return comboBox;
     }

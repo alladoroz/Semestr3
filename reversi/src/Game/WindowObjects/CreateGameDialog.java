@@ -70,6 +70,10 @@ public class CreateGameDialog extends JDialog {
         String name = playerBox.getPlayerName();
         if (playerBox.isBot()) {
             switch (playerBox.getDifficulty()) {
+                case 0: player = new VeryEasyBot(color, name, rival);
+                    break;
+                case 1: player = new NotSoEasyBot(color, name, rival);
+                    break;
                 default: player = new VeryEasyBot(color, name, rival);
                     break;
             }

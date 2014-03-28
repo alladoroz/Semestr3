@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 /**
  * Class of main form
  */
-public class MainForm{
+public class MainForm {
 
     private GameManager gameManager;
     private JFrame frame;
