@@ -60,4 +60,9 @@ public class Coordinates {
     public Coordinates clone() {
         return new Coordinates(this.X, this.Y);
     }
+
+    @Override
+    public String toString() {
+        return ("x = " + this.getX() + ", y = " + this.getY());
+    }
 }
