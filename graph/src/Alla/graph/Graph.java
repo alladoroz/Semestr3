@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * Graph class
  */
 public class Graph {
-    private boolean cycle = false;
     private int evenRobots = 0;
     private int unevenRobots = 0;
 
@@ -30,24 +29,11 @@ public class Graph {
     }
 
     /**
-     * debug method
-     */
-    private void debug () {
-        for (int i = 0; i < was.length; i++)
-            System.out.println(i + " = " + was[i]);
-        System.out.println("Cycle = " + cycle);
-        System.out.println("Uneven robots = " + unevenRobots);
-        System.out.println("Even robots = " + evenRobots);
-    }
-
-    /**
      * Solve the task
      * @return answer to the task
      */
     public boolean test() {
-        this.depthFirstSearch(0, 1);
-        //debug();
-        return cycle && numberOfRobots % 2 == 0 || unevenRobots % 2 == 0 && evenRobots % 2 == 0;
+        return depthFirstSearch(0, 1) && numberOfRobots != 1 || evenRobots != 1 && unevenRobots != 1;
     }
 
     /**
@@ -55,7 +41,7 @@ public class Graph {
      * @param vertex current vertex
      * @param from previous vertex
      */
-    private void depthFirstSearch(int vertex, int from) {
+    private boolean depthFirstSearch(int vertex, int from) {
         was[vertex] = from == 2 ? 1 : 2;
 
         if (robots[vertex])
@@ -65,10 +51,12 @@ public class Graph {
                 unevenRobots++;
 
         for (int i = 0; i < adjacentVertices[vertex].size(); i++) {
-            if (was[adjacentVertices[vertex].get(i)] == 0)
-                depthFirstSearch(adjacentVertices[vertex].get(i), from == 2 ? 1 : 2);
+            if (was[adjacentVertices[vertex].get(i)] == 0 && depthFirstSearch(adjacentVertices[vertex].get(i), from == 2 ? 1 : 2))
+                return true;
             else if (was[adjacentVertices[vertex].get(i)] == was[vertex])
-                cycle = true;
+                return true;
         }
+
+        return false;
     }
 }
