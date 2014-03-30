@@ -68,4 +68,14 @@ public class TreeTest {
         }
         assertEquals("abc$aaa$cde$bcd$", string);
     }
+    @Test
+    public void testRemove2() {
+        instance.add("remove");
+        instance.add("ololo");
+        instance.add("trololo");
+        instance.remove("trololo");
+        assertTrue(instance.contains("ololo"));
+        assertTrue(instance.contains("remove"));
+        assertFalse(instance.contains("trololo"));
+    }
 }

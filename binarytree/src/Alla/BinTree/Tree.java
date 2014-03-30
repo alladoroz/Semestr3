@@ -38,21 +38,39 @@ public class Tree< T extends Comparable<T> > implements Iterable<T> {
                 rightChild.add(value);
         }
 
+        private void reassign(Node parent, Node newNode) {
+            if (parent.leftChild == this)
+                parent.leftChild = newNode;
+            else
+                parent.rightChild = newNode;
+        }
+
         /**
          * Removes value from the tree with this root
          * @param value value to be removed
-         * @return root of the resulting tree
          */
-        private Node remove(T value) {
+        private void remove(T value, Node parent) {
             if (value.compareTo(this.value) == 0) {
                 if (leftChild == null && rightChild == null) {
-                    return null;
+                    if (Tree.this.root == this)
+                        Tree.this.root = null;
+                    else
+                        reassign(parent, null);
+                    return;
                 }
                 if (leftChild != null && rightChild == null) {
-                    return leftChild;
+                    if (Tree.this.root == this)
+                        Tree.this.root = leftChild;
+                    else
+                        reassign(parent, leftChild);
+                    return;
                 }
                 if (leftChild == null && rightChild != null) {
-                    return rightChild;
+                    if (Tree.this.root == this)
+                        Tree.this.root = rightChild;
+                    else
+                        reassign(parent, rightChild);
+
                 } else {
                     Node substitute = leftChild;
                     while (substitute.rightChild != null) {
@@ -64,15 +82,12 @@ public class Tree< T extends Comparable<T> > implements Iterable<T> {
                     } else {
                         substitute = null;
                     }
-
-                    return this;
                 }
-            } else if (value.compareTo(this.value) == -1 && leftChild != null) {
-                return leftChild.remove(value);
-            } else if (value.compareTo(this.value) == 1 && rightChild != null) {
-                return rightChild.remove(value);
-            } else
-                return this;
+            } else if (value.compareTo(this.value) < 0 && leftChild != null) {
+                leftChild.remove(value, this);
+            } else if (value.compareTo(this.value) > 0 && rightChild != null) {
+                rightChild.remove(value, this);
+            }
         }
 
         /**
@@ -154,7 +169,7 @@ public class Tree< T extends Comparable<T> > implements Iterable<T> {
      */
     public void remove(T value) {
         if (root != null)
-            root = root.remove(value);
+            root.remove(value, null);
     }
 
     /**
